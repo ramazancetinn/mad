@@ -179,7 +179,7 @@
                 }, function (error) {
                     console.log('Failed...', error);
                 });
-            fetch('http://212.47.242.13:5000/store-madness', {
+            fetch('https://test-ramo.hypnotes.net//store-madness', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -217,7 +217,7 @@
 
 
         function fetchCurrentMadnessLevel() {
-            fetch('http://212.47.242.13:5000/get-madness')
+            fetch('https://test-ramo.hypnotes.net//get-madness')
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
