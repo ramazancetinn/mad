@@ -131,9 +131,9 @@
     <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            fetchCurrentMadnessLevel();
-        });
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     fetchCurrentMadnessLevel();
+        // });
 
         document.getElementById('madMeter').addEventListener('input', function () {
             document.getElementById('madValue').textContent = this.value;
@@ -179,22 +179,22 @@
                 }, function (error) {
                     console.log('Failed...', error);
                 });
-            fetch('https://mad-backend-ten.vercel.app/store-madness', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ madLevel: madLevel }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                    hideInputElements();
-                    showResultMessage(madLevel);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
+            // fetch('https://mad-backend-ten.vercel.app/store-madness', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({ madLevel: madLevel }),
+            // })
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         console.log('Success:', data);
+            //         hideInputElements();
+            //         showResultMessage(madLevel);
+            //     })
+            //     .catch((error) => {
+            //         console.error('Error:', error);
+            //     });
             hideInputElements();
             showResultMessage(madLevel);
         }
