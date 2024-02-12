@@ -179,7 +179,7 @@
                 }, function (error) {
                     console.log('Failed...', error);
                 });
-            fetch('/store-madness', {
+            fetch('https://mad-backend-ten.vercel.app/store-madness', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -217,7 +217,7 @@
 
 
         function fetchCurrentMadnessLevel() {
-            fetch('/get-madness')
+            fetch('https://mad-backend-ten.vercel.app/get-madness')
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
