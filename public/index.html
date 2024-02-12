@@ -107,7 +107,12 @@
     <div class="container">
         <h1>How Mad Are You at Me?</h1>
         <input type="range" id="madMeter" min="0" max="100" value="0">
-        <p>Madness Level: <span id="madValue">0</span></p>
+        <p>Current Madness Level: <span id="madValue">0</span>
+            <br>
+            <br>
+            <span style="font-size: 3rem;" id="madEmoji"></span>
+        </p>
+
         <button id="submitBtn">Submit</button>
 
         <div id="resultMessage" class="result-message">
@@ -126,6 +131,9 @@
     <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchCurrentMadnessLevel();
+        });
 
         document.getElementById('madMeter').addEventListener('input', function () {
             document.getElementById('madValue').textContent = this.value;
@@ -171,6 +179,22 @@
                 }, function (error) {
                     console.log('Failed...', error);
                 });
+            fetch('/store-madness', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ madLevel: madLevel }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    hideInputElements();
+                    showResultMessage(madLevel);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
             hideInputElements();
             showResultMessage(madLevel);
         }
@@ -189,6 +213,26 @@
 
             resultText.textContent = 'Your madness level has been sent.';
             resultMessageDiv.style.display = 'block';
+        }
+
+
+        function fetchCurrentMadnessLevel() {
+            fetch('/get-madness')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        const madLevel = data.madnessLevel;
+                        document.getElementById('madValue').textContent = madLevel;
+                        document.getElementById('madMeter').value = madLevel;
+
+                        // Update the emoji based on madness level
+                        const emojiSpan = document.getElementById('madEmoji');
+                        console.log(madLevel)
+                        emojiSpan.textContent = madLevel > 50 ? '🥹' : '😔';
+
+                    }
+                })
+                .catch(error => console.error('Error fetching current madness level:', error));
         }
 
     </script>
